@@ -1,0 +1,11 @@
+{
+  "n_samples": 70,
+  "n_raw_matrices": 1,
+  "families": {
+    "DarkNexus": 49,
+    "Mirai": 21
+  },
+  "all_22_rows": true,
+  "all_raw_matrices_identical": true,
+  "interpretation": "Published STRACE rows are cumulative snapshots without timestamp, sequence index, arguments, return values, or paths. The cross-family collision is identical at the entire published 22xCall matrix level; no n-gram derived from this matrix can separate labels."
+}

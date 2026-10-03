@@ -1,0 +1,6 @@
+MalwareFamily,error_status,size,class_fraction
+DarkNexus,always_correct,25,0.2840909090909091
+DarkNexus,always_wrong,52,0.5909090909090909
+DarkNexus,seed_sensitive,11,0.125
+Mirai,always_correct,2715,0.9977949283351709
+Mirai,seed_sensitive,6,0.002205071664829107

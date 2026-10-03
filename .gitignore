@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+arm/
+upload/
+x86/
+g7_outputs/features_*.parquet
+g7_outputs/PILOT_06_G7_FEATURE_MATRIX*.parquet
+g7_outputs/*PREDICTIONS.parquet
+g10_validation/*PREDICTIONS.parquet
+g10_validation/arm_error_audit/*PER_HASH*.parquet
+manuscript/rendered*/
+manuscript/contact_sheet.png
+manuscript/

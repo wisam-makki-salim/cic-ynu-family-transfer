@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this software or its results, please cite this repository. A paper citation will be added after public release."
+title: "Cross-Architecture IoT Malware Family Transfer under Dataset Confounding"
+type: software
+authors:
+  - family-names: Salim
+    given-names: Wisam Makki
+date-released: 2026-10-01
+version: 1.0.0
+license: MIT
+repository-code: "https://github.com/wisam-makki-salim/cic-ynu-family-transfer"
+keywords:
+  - IoT malware
+  - cross-architecture evaluation
+  - dataset leakage
+  - STRACE
+  - reproducibility

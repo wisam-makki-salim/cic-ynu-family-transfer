@@ -1,0 +1,29 @@
+{
+  "seeds": [
+    20261001,
+    20261002,
+    20261003,
+    20261004,
+    20261005,
+    20261006,
+    20261007,
+    20261008,
+    20261009,
+    20261010
+  ],
+  "n_seeds": 10,
+  "architectures": [
+    "arm",
+    "mips",
+    "mipsel",
+    "x86"
+  ],
+  "feature_set": "STRACE relative frequency",
+  "rf_trees": 300,
+  "candidate_min_samples_leaf": [
+    1,
+    5
+  ],
+  "target_labels_used_for_selection_or_calibration": false,
+  "note": "All selection/calibration uses source-architecture OOF predictions only."
+}
