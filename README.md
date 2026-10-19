@@ -14,10 +14,12 @@ The main result is methodological rather than architectural. STRACE relative-fre
 - `run_g10_multiseed_threshold_transport.py`: ten-seed stability and source-only threshold transport.
 - `run_g10_arm_error_audit.py`: locked ARM error diagnostic.
 - `run_arm_raw_matrix_audit.py`: verifies the collision against the complete published ARM STRACE matrices.
-- `results/`: summary results, split manifest, feature schema, and audit tables. Raw telemetry and executable bytes are not included.
+- `results/`: summary results, cohort split manifest, feature schema, and audit tables. Raw telemetry and executable bytes are not included.
 - `docs/`: gate reports and the publication decision trail.
 
 The manuscript is not included in this public repository. It will be linked here after a public preprint release or journal acceptance, subject to the target journal's sharing policy.
+
+The frozen submission-support release is identified by the `v1.3.0` local tag and the matching GitHub `release/v1.3.0` branch.
 
 ## Data
 
@@ -61,6 +63,8 @@ The repository supports these claims:
 3. MIPS and MIPSEL transfer is stable, while ARM transfer is weak and x86 operating points are seed-sensitive.
 4. Source-only calibration does not solve threshold transport without a performance trade-off.
 5. The complete published ARM STRACE matrix is shared by 49 DarkNexus and 21 Mirai executions, creating an exact observational label collision.
+
+The raw ARM audit used all 133 published `Call_*` columns. The cross-architecture model used the 87 syscall variables common to all four architectures after excluding non-common and malformed or truncated columns. The collision is therefore not an artifact of that 87-variable filter: the entire 22×133 published matrix is identical across the 70 conflicting-label executions.
 
 The repository does not support claims of generic malware detection, architecture-invariant performance, causal effects of CPU architecture, a new detection architecture, or a causal diagnosis of QEMU failure versus anti-analysis.
 

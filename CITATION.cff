@@ -5,8 +5,8 @@ type: software
 authors:
   - family-names: Salim
     given-names: Wisam Makki
-date-released: 2026-10-01
-version: 1.0.0
+date-released: 2026-10-19
+version: 1.3.0
 license: MIT
 repository-code: "https://github.com/wisam-makki-salim/cic-ynu-family-transfer"
 keywords:

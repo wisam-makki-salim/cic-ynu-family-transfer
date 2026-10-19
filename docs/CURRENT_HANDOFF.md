@@ -3,10 +3,10 @@
 ## Project
 Research OS: Wisam AutoResearch v1
 Pilot: 06
-Date: 2026-10-02
+Date: 2026-10-19
 
 ## Current state
-Current gate: G7 manuscript revision
+Current gate: submission audit
 Status: PASS WITH RESTRICTIONS
 
 ## Locked research question
@@ -47,9 +47,9 @@ Interpretation boundary: the complete published 22-row STRACE matrix is identica
 - Raw ARM collision identity audit
 
 ## Open issues
-- Select the target journal and convert to its exact submission template.
+- Select the target journal and convert the generic manuscript to its exact submission template.
+- Restore the raw executable-level feature cache and held-out probabilities before adding any late-fusion result.
 - Obtain physical-device or independent-emulator validation if a broader deployment claim is desired.
-- Conduct final citation metadata and language audit before submission.
 
 ## Required next action
-Choose the target journal, then format the manuscript and cover letter to that journal without changing the locked claims.
+Choose the target journal, then apply only its house style and submission metadata without changing the locked claims.

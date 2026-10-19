@@ -63,16 +63,42 @@ ax.set_title("Early fusion does not improve the strongest modality")
 for i, v in enumerate(s.mean_macro_f1): ax.text(v + .006, i, f"{v:.3f}", va="center", fontsize=9)
 fig.tight_layout(); fig.savefig(F / "figure_3_modality_ablation.png", dpi=220); plt.close(fig)
 
-# Figure 4: ARM collision composition.
-fig, ax = plt.subplots(figsize=(6.8, 3.9))
-cats = ["DarkNexus\n(n=88)", "Mirai\n(n=2,721)"]
-collision = np.array([49, 21]); other = np.array([39, 2700])
-ax.bar(cats, collision, label="Exact cross-label profile", color="#B44949")
-ax.bar(cats, other, bottom=collision, label="Other profiles", color="#B8C8D6")
-ax.set_yscale("log"); ax.set_ylabel("Executables (log scale)")
-ax.set_title("One short STRACE profile carries conflicting ARM labels")
-ax.legend(frameon=False)
-for i, v in enumerate(collision): ax.text(i, max(v/2,1), str(v), ha="center", va="center", color="white", fontweight="bold")
-fig.tight_layout(); fig.savefig(F / "figure_4_arm_collision.png", dpi=220); plt.close(fig)
+# Figure 4: ARM collision composition.  Separate absolute counts from within-family
+# prevalence so the large Mirai class cannot visually suppress the DarkNexus result.
+manifest = pd.read_csv(R / "split_manifest.csv")
+arm = manifest[manifest.Arch == "arm"].MalwareFamily.value_counts()
+raw_collision = pd.read_csv(R / "PILOT_06_ARM_RAW_MATRIX_IDENTITY.csv")
+coll = raw_collision.MalwareFamily.value_counts()
+families = ["DarkNexus", "Mirai"]
+totals = np.array([int(arm[f]) for f in families])
+collision = np.array([int(coll[f]) for f in families])
+prevalence = 100 * collision / totals
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(8.2, 3.9), gridspec_kw={"width_ratios": [1.15, 1]})
+x = np.arange(2)
+ax1.bar(x, totals, color="#B8C8D6", label="All ARM executions")
+ax1.scatter(x, collision, color="#B44949", s=55, zorder=3, label="Shared 22×133 matrix")
+ax1.set_xticks(x, families)
+ax1.set_yscale("log")
+ax1.set_ylabel("Executables (log scale)")
+ax1.set_title("Absolute counts")
+for i, (n, c) in enumerate(zip(totals, collision)):
+    ax1.text(i, n * 1.12, f"n={n:,}", ha="center", va="bottom", fontsize=9)
+    ax1.annotate(str(c), (i, c), xytext=(8, 0), textcoords="offset points",
+                 ha="left", va="center", color="#8D3030", fontweight="bold")
+ax1.legend(frameon=False, fontsize=8, loc="upper left")
+
+ax2.bar(x, prevalence, color="#B44949")
+ax2.set_xticks(x, families)
+ax2.set_ylim(0, 65)
+ax2.set_ylabel("Within-family prevalence (%)")
+ax2.set_title("Collision prevalence")
+for i, v in enumerate(prevalence):
+    ax2.text(i, v + 1.5, f"{v:.1f}%", ha="center", va="bottom", fontweight="bold")
+
+fig.suptitle("One complete published ARM STRACE matrix carries conflicting labels", y=1.01)
+fig.tight_layout()
+fig.savefig(F / "figure_4_arm_collision.png", dpi=300, bbox_inches="tight")
+plt.close(fig)
 
 print("Figures written to", F)

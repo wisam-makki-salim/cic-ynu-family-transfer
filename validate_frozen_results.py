@@ -13,6 +13,20 @@ g7 = pd.read_csv(R / "PILOT_06_G7_RESULTS.csv")
 primary = g7[(g7.feature_set == "strace") & (g7.model == "random_forest")]
 assert len(primary) == 4
 assert abs(primary.macro_f1.mean() - 0.8646027) < 1e-5
+assert primary.n.sum() == 7587
+assert primary.n_darknexus.sum() == 219
+assert primary.balanced_accuracy.notna().all()
+assert primary.mcc.notna().all()
+
+expected = {
+    "arm": (2809, 88),
+    "mips": (1586, 42),
+    "mipsel": (1522, 39),
+    "x86": (1670, 50),
+}
+for arch, (n, n_darknexus) in expected.items():
+    row = primary[primary.held_out_arch == arch].iloc[0]
+    assert (int(row.n), int(row.n_darknexus)) == (n, n_darknexus)
 
 multi = pd.read_csv(R / "PILOT_06_MULTI_SEED_THRESHOLD_RESULTS.csv")
 locked = multi[multi.strategy == "source_mean_opt"]
@@ -26,6 +40,17 @@ assert int(collision.n_mirai.iloc[0]) == 21
 
 audit = json.loads((R / "PILOT_06_ARM_ERROR_AUDIT_SUMMARY.json").read_text())
 assert audit["samples_in_cross_label_collisions"] == 70
+
+raw = json.loads((R / "PILOT_06_ARM_RAW_MATRIX_IDENTITY_SUMMARY.json").read_text())
+assert raw["n_samples"] == 70
+assert raw["n_raw_matrices"] == 1
+assert raw["all_22_rows"] is True
+assert raw["all_raw_matrices_identical"] is True
+
+schema = json.loads((R / "feature_schema.json").read_text())
+assert schema["pcap"]["n_common"] == 39
+assert schema["sar"]["n_common"] == 313
+assert schema["strace"]["n_common"] == 87
 
 print("Frozen results are internally consistent.")
 
